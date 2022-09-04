@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3408CE4828C515A10005B663 /* DetailNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3408CE4728C515A10005B663 /* DetailNewsViewController.swift */; };
 		341978B128C0FDC8002536F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341978B028C0FDC8002536F5 /* AppDelegate.swift */; };
 		341978B328C0FDC8002536F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341978B228C0FDC8002536F5 /* SceneDelegate.swift */; };
 		341978B528C0FDC8002536F5 /* NewsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341978B428C0FDC8002536F5 /* NewsFeedViewController.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3408CE4728C515A10005B663 /* DetailNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailNewsViewController.swift; sourceTree = "<group>"; };
 		341978AD28C0FDC8002536F5 /* NewNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		341978B028C0FDC8002536F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		341978B228C0FDC8002536F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				341978E328C35C57002536F5 /* SearchNewsViewController.swift */,
 				3445A66F28C3991F004929BD /* NewsCategoryViewController.swift */,
 				34F4500F28C4D53800287826 /* DetailWeatherViewController.swift */,
+				3408CE4728C515A10005B663 /* DetailNewsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				341978B128C0FDC8002536F5 /* AppDelegate.swift in Sources */,
 				341978E428C35C57002536F5 /* SearchNewsViewController.swift in Sources */,
 				34F4500C28C497D700287826 /* WeatherData.swift in Sources */,
+				3408CE4828C515A10005B663 /* DetailNewsViewController.swift in Sources */,
 				3445A67028C3991F004929BD /* NewsCategoryViewController.swift in Sources */,
 				341978DE28C24D89002536F5 /* NewsData.swift in Sources */,
 				341978DC28C24C9B002536F5 /* NewsManager.swift in Sources */,

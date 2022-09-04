@@ -19,7 +19,6 @@ class NewsFeedViewController: UIViewController {
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var weatherImageView: UIImageView!
-    @IBOutlet weak var cityLabel: UILabel!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -65,9 +64,17 @@ extension NewsFeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.publishedLabel.text = item.publishedAt?.padding(toLength: 10, withPad: "", startingAt: 0)
         cell.newsImageView.sd_setImage(with: URL(string: item.urlToImage ?? ""))
         cell.authorlabel.text = item.source?.name
-        cell.descriptionLabel.text = item.articleDescription
+        cell.descriptionLabel.text = item.title
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        guard let newsDetailVC = storyboard.instantiateViewController(withIdentifier: "DetailNewsViewController") as? DetailNewsViewController else {return}
+        let item = articles[indexPath.row]
+        newsDetailVC.item = item
+        show(newsDetailVC, sender: self)
     }
 }
 
@@ -103,7 +110,6 @@ extension NewsFeedViewController: WeatherManagerDelegate {
     func didUpdateWeather(weatherManager: WeatherManager, weather: WeatherModel) {
         DispatchQueue.main.async {
             self.tempLabel.text = ("\(weather.temperatureString)°C\n\(weather.cityName)")
-            self.cityLabel.text = weather.cityName
             self.weatherImageView.image = UIImage(systemName: weather.conditionName)
         }
     }

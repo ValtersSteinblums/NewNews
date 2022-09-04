@@ -7,20 +7,36 @@
 
 import UIKit
 import SDWebImage
+import CoreLocation 
+
 class NewsFeedViewController: UIViewController {
     
     var articles: [Article] = []
+    var weatherManager = WeatherManager()
+    var newsManager = NewsManager()
+    let locationManager = CLLocationManager()
     
     @IBOutlet weak var tblView: UITableView!
+    @IBOutlet weak var tempLabel: UILabel!
+    @IBOutlet weak var weatherImageView: UIImageView!
+    @IBOutlet weak var cityLabel: UILabel!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        NewsManager.shared.getTopStories { articles in
+        
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestLocation()
+        
+        weatherManager.weatherDelegate = self
+        
+        newsManager.getTopStories { articles in
             self.articles = articles
             DispatchQueue.main.async {
                 self.tblView.reloadData()
             }
         }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -59,7 +75,7 @@ extension NewsFeedViewController: UITableViewDelegate, UITableViewDataSource {
 extension NewsFeedViewController: SearchNewsViewControllerDelegate {
     
     func refreshNewsFeed(searchQuery: String) {
-        NewsManager.shared.searchNews(searchQuery: searchQuery) { articles in
+        newsManager.searchNews(searchQuery: searchQuery) { articles in
             self.articles = articles
             DispatchQueue.main.async {
                 self.tblView.reloadData()
@@ -72,13 +88,40 @@ extension NewsFeedViewController: SearchNewsViewControllerDelegate {
 // MARK: - NewsCategoryViewControllerDelegate
 extension NewsFeedViewController: NewsCategoryViewControllerDelegate {
     func refreshNewsFeed(category: String) {
-        NewsManager.shared.searchNews(category: category) { articles in
+        newsManager.searchNews(category: category) { articles in
             self.articles = articles
             DispatchQueue.main.async {
                 self.tblView.reloadData()
             }
         }
         tblView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
+    }
+}
+
+// MARK: - WeatherManagerDelegate
+extension NewsFeedViewController: WeatherManagerDelegate {
+    func didUpdateWeather(weatherManager: WeatherManager, weather: WeatherModel) {
+        DispatchQueue.main.async {
+            self.tempLabel.text = ("\(weather.temperatureString)°C\n\(weather.cityName)")
+            self.cityLabel.text = weather.cityName
+            self.weatherImageView.image = UIImage(systemName: weather.conditionName)
+        }
+    }
+}
+
+// MARK: - CLLocationManagerDelegate
+extension NewsFeedViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            locationManager.stopUpdatingLocation()
+            let lat = location.coordinate.latitude
+            let lon = location.coordinate.longitude
+            weatherManager.getWeatherByLocation(lattitude: lat, longitude: lon)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
     }
 }
 

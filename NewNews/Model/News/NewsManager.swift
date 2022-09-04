@@ -7,30 +7,25 @@
 
 import Foundation
 
-class NewsManager {
-    static let shared = NewsManager()
+struct NewsManager {
     
-    struct Constants {
-        static let topHeadlinesURL = URL(string: "https://newsapi.org/v2/top-headlines?apiKey=5ae2470e968e40c99c3819b7d42f7d94&country=us")
-        static let searchEverythingURL = "https://newsapi.org/v2/everything?apiKey=5ae2470e968e40c99c3819b7d42f7d94&q="
-        static let searchByCategoryURL = "https://newsapi.org/v2/top-headlines?apiKey=5ae2470e968e40c99c3819b7d42f7d94&country=us&category="
-    }
+    let topHeadlinesURL = URL(string: "https://newsapi.org/v2/top-headlines?apiKey=5ae2470e968e40c99c3819b7d42f7d94&country=us")
+    let searchEverythingURL = "https://newsapi.org/v2/everything?apiKey=5ae2470e968e40c99c3819b7d42f7d94&q="
+    let searchByCategoryURL = "https://newsapi.org/v2/top-headlines?apiKey=5ae2470e968e40c99c3819b7d42f7d94&country=us&category="
     
-    private init() {}
-    
-    public func getTopStories(completion: @escaping([Article]) -> ()) {
-        guard let url = Constants.topHeadlinesURL else {return}
+    func getTopStories(completion: @escaping([Article]) -> ()) {
+        guard let url = topHeadlinesURL else {return}
         sessionTask(url: url, completion: completion)
     }
     
-    public func searchNews(searchQuery: String, completion: @escaping([Article]) -> ()) {
-        let urlString = Constants.searchEverythingURL + searchQuery
+    func searchNews(searchQuery: String, completion: @escaping([Article]) -> ()) {
+        let urlString = searchEverythingURL + searchQuery
         guard let url = URL(string: urlString) else {return}
         sessionTask(url: url, completion: completion)
     }
     
-    public func searchNews(category: String, completion: @escaping([Article]) -> ()) {
-        let urlString = Constants.searchByCategoryURL + category
+    func searchNews(category: String, completion: @escaping([Article]) -> ()) {
+        let urlString = searchByCategoryURL + category
         guard let url = URL(string: urlString) else {return}
         sessionTask(url: url, completion: completion)
     }

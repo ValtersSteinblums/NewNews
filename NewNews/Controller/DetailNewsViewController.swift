@@ -132,39 +132,38 @@ class DetailNewsViewController: UIViewController {
                 print("REMOVE SAVE PRESSED: ", savedNews)
             case false:
                 if let entity = NSEntityDescription.entity(forEntityName: "SavedNews", in: self.managedObjectContext!) {
-                    let article = NSManagedObject(entity: entity, insertInto: self.managedObjectContext)
-                    article.setValue(item?.articleDescription, forKey: "newsDescription")
-                    article.setValue(item?.title, forKey: "newsTitle")
-                    article.setValue(item?.urlToImage, forKey: "newsImage")
-                    article.setValue(item?.url, forKey: "newsURL")
-                    article.setValue(item?.source?.name, forKey: "newsSource")
-                    article.setValue(item?.publishedAt?.description, forKey: "newsDate")
-                    changeFavouriteButtonState(isSaved: true)
-                    print("SAVE PRESSED: ", savedNews)
-                }
+                                    let article = NSManagedObject(entity: entity, insertInto: self.managedObjectContext)
+                                    article.setValue(item?.articleDescription, forKey: "newsDescription")
+                                    article.setValue(item?.title, forKey: "newsTitle")
+                                    article.setValue(item?.urlToImage, forKey: "newsImage")
+                                    article.setValue(item?.url, forKey: "newsURL")
+                                    article.setValue(item?.source?.name, forKey: "newsSource")
+                                    article.setValue(item?.publishedAt?.description, forKey: "newsDate")
+                changeFavouriteButtonState(isSaved: true)
+                print("SAVE PRESSED: ", savedNews)
             }
-            if self.isFromViewController == "SavedNewsFeed" {
-                let request: NSFetchRequest<SavedNews> = SavedNews.fetchRequest()
-                do {
-                    // when core data is empty, returns nil. Any workarounds...?
-                    if let result = try managedObjectContext?.fetch(request) {
-                        for savedNews in result as [NSManagedObject] {
-                            if (savedNews.value(forKey: "newsTitle") as! String) == saved?.newsTitle {
-                                managedObjectContext?.delete(savedNews)
-                            }
+        }
+        }
+        if self.isFromViewController == "SavedNewsFeed" {
+            let request: NSFetchRequest<SavedNews> = SavedNews.fetchRequest()
+            do {
+                // when core data is empty, returns nil. Any workarounds...?
+                if let result = try managedObjectContext?.fetch(request) {
+                    for savedNews in result as [NSManagedObject] {
+                        if (savedNews.value(forKey: "newsTitle") as! String) == saved?.newsTitle {
+                            managedObjectContext?.delete(savedNews)
                         }
                     }
-                } catch {
-                    print("Something went wrong removing favourites from detail view")
                 }
-                changeFavouriteButtonState(isSaved: false)
-                //            https://stackoverflow.com/questions/28760541/programmatically-go-back-to-previous-viewcontroller-in-swift
-                _ = navigationController?.popViewController(animated: true)
-                print("REMOVE SAVE PRESSED: ", savedNews)
+            } catch {
+                print("Something went wrong removing favourites from detail view")
             }
-            self.saveData()
+            changeFavouriteButtonState(isSaved: false)
+            //            https://stackoverflow.com/questions/28760541/programmatically-go-back-to-previous-viewcontroller-in-swift
+            _ = navigationController?.popViewController(animated: true)
+            print("REMOVE SAVE PRESSED: ", savedNews)
         }
-        
+        self.saveData()
     }
     
     func checkIfExists() -> Bool {
@@ -199,8 +198,8 @@ class DetailNewsViewController: UIViewController {
         }
         saveData()
     }
-    
-    
+        
+        
     
     // MARK: - Navigation
     

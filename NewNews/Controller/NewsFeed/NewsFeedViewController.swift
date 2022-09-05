@@ -7,7 +7,7 @@
 
 import UIKit
 import SDWebImage
-import CoreLocation 
+import CoreLocation
 
 class NewsFeedViewController: UIViewController {
     
@@ -20,6 +20,17 @@ class NewsFeedViewController: UIViewController {
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var weatherImageView: UIImageView!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        newsManager.getTopStories { articles in
+            self.articles = articles
+            DispatchQueue.main.async {
+                self.tblView.reloadData()
+            }
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
@@ -28,14 +39,6 @@ class NewsFeedViewController: UIViewController {
         locationManager.requestLocation()
         
         weatherManager.weatherDelegate = self
-        
-        newsManager.getTopStories { articles in
-            self.articles = articles
-            DispatchQueue.main.async {
-                self.tblView.reloadData()
-            }
-        }
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -61,6 +64,7 @@ extension NewsFeedViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as? NewsTableViewCell else {return UITableViewCell()}
         let item = articles[indexPath.row]
+        
         cell.publishedLabel.text = item.publishedAt?.padding(toLength: 10, withPad: "", startingAt: 0)
         cell.newsImageView.sd_setImage(with: URL(string: item.urlToImage ?? ""))
         cell.authorlabel.text = item.source?.name

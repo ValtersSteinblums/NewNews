@@ -14,13 +14,13 @@ protocol NewsCategoryViewControllerDelegate {
 class NewsCategoryViewController: UIViewController {
     
     let categories = [
-        "business",
-        "entertainment",
-        "general",
-        "health",
-        "science",
-        "sports",
-        "technology"
+        "General",
+        "Business",
+        "Entertainment",
+        "Health",
+        "Science",
+        "Sports",
+        "Technology"
     ]
 
     var delegate: NewsCategoryViewControllerDelegate?

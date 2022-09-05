@@ -28,8 +28,6 @@ class DetailNewsViewController: UIViewController {
         super.viewWillAppear(true)
         
         if self.isFromViewController == "NewsFeed" {
-            self.title = item?.author
-            
             articleLabel.text = item?.articleDescription
             newsImage.sd_setImage(with: URL(string: item?.urlToImage ?? ""))
             sourceLabel.text = item?.source?.name
@@ -40,14 +38,10 @@ class DetailNewsViewController: UIViewController {
             
             let alreadySaved = checkIfExists()
             changeFavouriteButtonState(isSaved: alreadySaved)
-            
-            print("HELLO FROM FEED")
         }
         
         
         if self.isFromViewController == "SavedNewsFeed" {
-            
-            
             articleLabel.text = saved?.newsDescription
             newsImage.sd_setImage(with: URL(string: saved?.newsImage ?? ""))
             sourceLabel.text = saved?.newsSource
@@ -57,8 +51,6 @@ class DetailNewsViewController: UIViewController {
             managedObjectContext = appDelegate.persistentContainer.viewContext
             
             changeFavouriteButtonState(isSaved: true)
-            
-            print("HELLO FROM FAVES")
         }
         
         loadData()
@@ -85,27 +77,12 @@ class DetailNewsViewController: UIViewController {
         loadData()
     }
     
-    //    https://stackoverflow.com/questions/37938722/how-to-implement-share-button-in-swift
     @IBAction func shareButtonPressed(_ sender: UIButton) {
         if self.isFromViewController == "NewsFeed" {
-            let shareNewsArticleVC = UIActivityViewController(activityItems: [item?.url ?? ""], applicationActivities: nil)
-            shareNewsArticleVC.popoverPresentationController?.sourceView = sender
-            present(shareNewsArticleVC, animated: true, completion: nil)
-            shareNewsArticleVC.completionWithItemsHandler = { (activityType, completed:Bool, returnedItems:[Any]?, error: Error?) in
-                if completed  {
-                    self.dismiss(animated: true, completion: nil)
-                }
-            }
+            shareView(activityItems: [item?.url ?? ""], sender: sender)
         }
         if self.isFromViewController == "SavedNewsFeed" {
-            let shareNewsArticleVC = UIActivityViewController(activityItems: [saved?.newsURL ?? ""], applicationActivities: nil)
-            shareNewsArticleVC.popoverPresentationController?.sourceView = sender
-            present(shareNewsArticleVC, animated: true, completion: nil)
-            shareNewsArticleVC.completionWithItemsHandler = { (activityType, completed:Bool, returnedItems:[Any]?, error: Error?) in
-                if completed  {
-                    self.dismiss(animated: true, completion: nil)
-                }
-            }
+            shareView(activityItems: [saved?.newsURL ?? ""], sender: sender)
         }
     }
     
@@ -117,7 +94,6 @@ class DetailNewsViewController: UIViewController {
             case true:
                 let request: NSFetchRequest<SavedNews> = SavedNews.fetchRequest()
                 do {
-                    // when core data is empty, returns nil. Any workarounds...?
                     if let result = try managedObjectContext?.fetch(request) {
                         for savedNews in result as [NSManagedObject] {
                             if (savedNews.value(forKey: "newsTitle") as! String) == item?.title {
@@ -129,25 +105,22 @@ class DetailNewsViewController: UIViewController {
                     print("Something went wrong removing favourites from detail view")
                 }
                 changeFavouriteButtonState(isSaved: false)
-                print("REMOVE SAVE PRESSED: ", savedNews)
             case false:
                 if let entity = NSEntityDescription.entity(forEntityName: "SavedNews", in: self.managedObjectContext!) {
-                                    let article = NSManagedObject(entity: entity, insertInto: self.managedObjectContext)
-                                    article.setValue(item?.articleDescription, forKey: "newsDescription")
-                                    article.setValue(item?.title, forKey: "newsTitle")
-                                    article.setValue(item?.urlToImage, forKey: "newsImage")
-                                    article.setValue(item?.url, forKey: "newsURL")
-                                    article.setValue(item?.source?.name, forKey: "newsSource")
-                                    article.setValue(item?.publishedAt?.description, forKey: "newsDate")
-                changeFavouriteButtonState(isSaved: true)
-                print("SAVE PRESSED: ", savedNews)
+                    let article = NSManagedObject(entity: entity, insertInto: self.managedObjectContext)
+                    article.setValue(item?.articleDescription, forKey: "newsDescription")
+                    article.setValue(item?.title, forKey: "newsTitle")
+                    article.setValue(item?.urlToImage, forKey: "newsImage")
+                    article.setValue(item?.url, forKey: "newsURL")
+                    article.setValue(item?.source?.name, forKey: "newsSource")
+                    article.setValue(item?.publishedAt?.description, forKey: "newsDate")
+                    changeFavouriteButtonState(isSaved: true)
+                }
             }
-        }
         }
         if self.isFromViewController == "SavedNewsFeed" {
             let request: NSFetchRequest<SavedNews> = SavedNews.fetchRequest()
             do {
-                // when core data is empty, returns nil. Any workarounds...?
                 if let result = try managedObjectContext?.fetch(request) {
                     for savedNews in result as [NSManagedObject] {
                         if (savedNews.value(forKey: "newsTitle") as! String) == saved?.newsTitle {
@@ -159,9 +132,7 @@ class DetailNewsViewController: UIViewController {
                 print("Something went wrong removing favourites from detail view")
             }
             changeFavouriteButtonState(isSaved: false)
-            //            https://stackoverflow.com/questions/28760541/programmatically-go-back-to-previous-viewcontroller-in-swift
             _ = navigationController?.popViewController(animated: true)
-            print("REMOVE SAVE PRESSED: ", savedNews)
         }
         self.saveData()
     }
@@ -169,23 +140,18 @@ class DetailNewsViewController: UIViewController {
     func checkIfExists() -> Bool {
         let request: NSFetchRequest<SavedNews> = SavedNews.fetchRequest()
         do {
-            // when core data is empty, returns nil. Any workarounds...?
             if let result = try managedObjectContext?.fetch(request) {
                 for savedNews in result as [NSManagedObject] {
                     if (savedNews.value(forKey: "newsTitle") as! String) == item?.title {
-                        print("ALREADY EXISTS!!!")
                         savedArticleExists = true
                     } else {
                         savedArticleExists = false
-                        print("GO AHEAD ADD TO FAVES!!!")
                     }
                 }
             }
         } catch {
             print("Something went wrong comapring")
         }
-        print(savedArticleExists ?? "HUH.. WHY NIL?")
-        // probably this is not a good idea...
         return savedArticleExists ?? false
     }
     
@@ -198,8 +164,17 @@ class DetailNewsViewController: UIViewController {
         }
         saveData()
     }
-        
-        
+    
+    func shareView(activityItems: [Any], sender: UIButton) {
+        let shareNewsArticleVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        shareNewsArticleVC.popoverPresentationController?.sourceView = sender
+        present(shareNewsArticleVC, animated: true, completion: nil)
+        shareNewsArticleVC.completionWithItemsHandler = { (activityType, completed:Bool, returnedItems:[Any]?, error: Error?) in
+            if completed  {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
     
     // MARK: - Navigation
     

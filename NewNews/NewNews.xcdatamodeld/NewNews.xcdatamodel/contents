@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21G83" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="SavedNews" representedClassName="SavedNews" syncable="YES" codeGenerationType="class">
+        <attribute name="newsDate" optional="YES" attributeType="String"/>
+        <attribute name="newsDescription" optional="YES" attributeType="String"/>
+        <attribute name="newsImage" optional="YES" attributeType="String"/>
+        <attribute name="newsSource" optional="YES" attributeType="String"/>
+        <attribute name="newsTitle" optional="YES" attributeType="String"/>
+        <attribute name="newsURL" optional="YES" attributeType="String"/>
+        <attribute name="rowOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
     <entity name="SearchHistory" representedClassName="SearchHistory" syncable="YES" codeGenerationType="class">
         <attribute name="searchItem" optional="YES" attributeType="String"/>
     </entity>
     <elements>
+        <element name="SavedNews" positionX="-63" positionY="-9" width="128" height="134"/>
         <element name="SearchHistory" positionX="-63" positionY="-18" width="128" height="44"/>
     </elements>
 </model>

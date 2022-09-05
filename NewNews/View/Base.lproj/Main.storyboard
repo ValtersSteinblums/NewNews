@@ -453,7 +453,7 @@
         <!--Detail News View Controller-->
         <scene sceneID="D5T-zc-KUR">
             <objects>
-                <viewController storyboardIdentifier="DetailNewsViewController" id="vs6-vd-4lc" customClass="DetailNewsViewController" customModule="NewNews" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailNewsViewController" hidesBottomBarWhenPushed="YES" id="vs6-vd-4lc" customClass="DetailNewsViewController" customModule="NewNews" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2fO-5T-aP2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -480,13 +480,19 @@
                                 <rect key="frame" x="360" y="360" width="43" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="bookmark" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system"/>
+                                <connections>
+                                    <action selector="saveButtonTapped:" destination="vs6-vd-4lc" eventType="touchUpInside" id="tvs-16-mFo"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qec-Y8-bek">
                                 <rect key="frame" x="309" y="360" width="43" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="square.and.arrow.up" catalog="system"/>
+                                <connections>
+                                    <action selector="shareButtonPressed:" destination="vs6-vd-4lc" eventType="touchUpInside" id="4Sb-hy-2Mp"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2hO-Eu-TST">
                                 <rect key="frame" x="258" y="360" width="43" height="21"/>
@@ -512,6 +518,7 @@
                         <outlet property="articleLabel" destination="fHH-hb-XQe" id="4Er-5f-mI3"/>
                         <outlet property="dateLabel" destination="lBg-BY-Ffh" id="BSY-4c-g9X"/>
                         <outlet property="newsImage" destination="Oqp-0e-xLw" id="Zp4-Tw-oxx"/>
+                        <outlet property="saveButton" destination="bsg-JO-Zc6" id="ek0-rw-1JS"/>
                         <outlet property="sourceLabel" destination="eJq-o8-Shc" id="kdM-qj-pbS"/>
                     </connections>
                 </viewController>
@@ -519,10 +526,10 @@
             </objects>
             <point key="canvasLocation" x="1002.8985507246377" y="-102.45535714285714"/>
         </scene>
-        <!--View Controller-->
+        <!--Web View Controller-->
         <scene sceneID="Rd2-yv-b09">
             <objects>
-                <viewController id="hwR-d9-HBp" sceneMemberID="viewController">
+                <viewController id="hwR-d9-HBp" customClass="WebViewController" customModule="NewNews" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ehu-HJ-NEY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -546,6 +553,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="5sb-nA-8N8"/>
+                    <connections>
+                        <outlet property="webView" destination="eeQ-T2-OWF" id="zlr-vE-cnY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dOL-kE-XGr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -611,32 +621,53 @@
         <!--Read Later-->
         <scene sceneID="xVE-hu-EsG">
             <objects>
-                <tableViewController id="Q0R-0m-j4h" sceneMemberID="viewController">
+                <tableViewController id="Q0R-0m-j4h" customClass="SavedNewsTableViewController" customModule="NewNews" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="SID-hc-VBD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="185" id="E1c-EC-hXd">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="savedNewsCell" rowHeight="185" id="E1c-EC-hXd" customClass="SavedNewsTableViewCell" customModule="NewNews" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44.5" width="414" height="185"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E1c-EC-hXd" id="v85-EG-LYg">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="185"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bXa-bn-R9V">
-                                            <rect key="frame" x="163" y="11" width="240" height="162"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2yS-zR-ywx">
-                                            <rect key="frame" x="9" y="11" width="146" height="162"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TUO-Lf-xjH">
+                                            <rect key="frame" x="9" y="11" width="394" height="162"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2yS-zR-ywx">
+                                                    <rect key="frame" x="0.0" y="0.0" width="146" height="162"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="146" id="8Ds-XO-TRF"/>
+                                                        <constraint firstAttribute="height" constant="162" id="gGG-lu-piy"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bXa-bn-R9V">
+                                                    <rect key="frame" x="154" y="0.0" width="240" height="162"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="162" id="eQl-NX-pMb"/>
+                                                        <constraint firstAttribute="width" constant="240" id="hFG-gj-0xj"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="TUO-Lf-xjH" secondAttribute="trailing" constant="11" id="Fhm-wu-l3o"/>
+                                        <constraint firstItem="TUO-Lf-xjH" firstAttribute="leading" secondItem="v85-EG-LYg" secondAttribute="leading" constant="9" id="V7E-OA-IKb"/>
+                                        <constraint firstAttribute="bottom" secondItem="TUO-Lf-xjH" secondAttribute="bottom" constant="12" id="cgX-PS-p6c"/>
+                                        <constraint firstItem="TUO-Lf-xjH" firstAttribute="top" secondItem="v85-EG-LYg" secondAttribute="top" constant="11" id="sab-Xs-beG"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="savedImageView" destination="bXa-bn-R9V" id="yqL-7B-rNQ"/>
+                                    <outlet property="savedTitleLabel" destination="2yS-zR-ywx" id="9J0-Cg-2QL"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -647,9 +678,15 @@
                     <navigationItem key="navigationItem" title="Read Later" id="Y6o-Dn-meZ">
                         <barButtonItem key="leftBarButtonItem" image="trash.square" catalog="system" id="Hhz-Od-E6o">
                             <color key="tintColor" systemColor="labelColor"/>
+                            <connections>
+                                <action selector="deleteAllButtonPressed:" destination="Q0R-0m-j4h" id="5W1-Tk-T1w"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="arrow.up.arrow.down.circle" catalog="system" id="3EQ-Re-F85">
                             <color key="tintColor" systemColor="labelColor"/>
+                            <connections>
+                                <action selector="editButtonPressed:" destination="Q0R-0m-j4h" id="J1e-dG-v0s"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
@@ -666,6 +703,7 @@
         <image name="cloud.drizzle.fill" catalog="system" width="125" height="128"/>
         <image name="deskclock" catalog="system" width="128" height="124"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="newspaper.fill" catalog="system" width="128" height="111"/>
         <image name="safari" catalog="system" width="128" height="121"/>

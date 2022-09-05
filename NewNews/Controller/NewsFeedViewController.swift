@@ -74,6 +74,7 @@ extension NewsFeedViewController: UITableViewDelegate, UITableViewDataSource {
         guard let newsDetailVC = storyboard.instantiateViewController(withIdentifier: "DetailNewsViewController") as? DetailNewsViewController else {return}
         let item = articles[indexPath.row]
         newsDetailVC.item = item
+        newsDetailVC.isFromViewController = "NewsFeed"
         show(newsDetailVC, sender: self)
     }
 }

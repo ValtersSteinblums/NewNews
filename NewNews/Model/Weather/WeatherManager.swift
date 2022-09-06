@@ -52,7 +52,7 @@ struct WeatherManager {
             let name = jsonData.name
             let temp = jsonData.main.temp
             let id = jsonData.weather[0].id
-            let description = jsonData.weather[0].description
+            let description = jsonData.weather[0].main
             let feelsTemp = jsonData.main.feels_like
             let humidity = jsonData.main.humidity
             let wind = jsonData.wind.speed

@@ -20,7 +20,6 @@ class DetailWeatherViewController: UIViewController {
     @IBOutlet weak var temperatureFeelsLikeLabel: UILabel!
     @IBOutlet weak var humidityLabel: UILabel!
     @IBOutlet weak var windSpeedLabel: UILabel!
-    @IBOutlet weak var windDirectionLabel: UILabel!
     @IBOutlet weak var sunriseLabel: UILabel!
     @IBOutlet weak var sunsetLabel: UILabel!
     @IBOutlet weak var lastUpdateLabel: UILabel!
@@ -82,13 +81,12 @@ extension DetailWeatherViewController: WeatherManagerDelegate {
             self.weatherDescriptionLabel.text = weather.weatherDescription
             self.temperatureLabel.text = "\(weather.temperatureString)°C"
             self.cityLabel.text = weather.cityName
-            self.temperatureFeelsLikeLabel.text = "\(weather.feelsLikeTemperatureString)°C"
-            self.humidityLabel.text = weather.airHumidity.description
-            self.windSpeedLabel.text = weather.windSpeed.description
-            self.windDirectionLabel.text = weather.windDirection
-            self.sunriseLabel.text = weather.sunriseToDate.description
-            self.sunsetLabel.text = weather.sunsetToDate.description
-            self.lastUpdateLabel.text = weather.lastUpdateToDate.description
+            self.temperatureFeelsLikeLabel.text = "Feels like \(weather.feelsLikeTemperatureString)°C"
+            self.humidityLabel.text = "Humidity: \(weather.airHumidity.description)%"
+            self.windSpeedLabel.text = "Wind: \(weather.windSpeed.description)m/s Direction:\(weather.windDirection)"
+            self.sunriseLabel.text = "Sunrise: \(weather.sunriseToDate.description)"
+            self.sunsetLabel.text = "Sunset: \(weather.sunsetToDate.description) "
+            self.lastUpdateLabel.text = "Last updated: \(weather.lastUpdateToDate.description)"
         }
     }
 }

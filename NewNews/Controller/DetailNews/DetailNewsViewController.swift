@@ -31,7 +31,7 @@ class DetailNewsViewController: UIViewController {
             articleLabel.text = item?.articleDescription
             newsImage.sd_setImage(with: URL(string: item?.urlToImage ?? ""))
             sourceLabel.text = item?.source?.name
-            dateLabel.text = item?.publishedAt?.description
+            dateLabel.text = item?.publishedAt?.description.padding(toLength: 10, withPad: "", startingAt: 0)
             
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             managedObjectContext = appDelegate.persistentContainer.viewContext
@@ -45,7 +45,7 @@ class DetailNewsViewController: UIViewController {
             articleLabel.text = saved?.newsDescription
             newsImage.sd_setImage(with: URL(string: saved?.newsImage ?? ""))
             sourceLabel.text = saved?.newsSource
-            dateLabel.text = saved?.newsDate
+            dateLabel.text = saved?.newsDate?.padding(toLength: 10, withPad: "", startingAt: 0)
             
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             managedObjectContext = appDelegate.persistentContainer.viewContext

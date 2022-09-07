@@ -14,7 +14,7 @@ class DetailNewsViewController: UIViewController {
     var saved: SavedNews?
     var savedNews = [SavedNews]()
     var isFromViewController: String = ""
-    var savedArticleExists: Bool?
+    //var savedArticleExists: Bool?
     
     var managedObjectContext: NSManagedObjectContext?
     
@@ -138,21 +138,35 @@ class DetailNewsViewController: UIViewController {
     }
     
     func checkIfExists() -> Bool {
-        let request: NSFetchRequest<SavedNews> = SavedNews.fetchRequest()
+        let fetchRequest: NSFetchRequest<SavedNews> = SavedNews.fetchRequest()
+        fetchRequest.fetchLimit = 1
+        fetchRequest.predicate = NSPredicate(format: "newsTitle == %@", item?.title ?? "")
+        
         do {
-            if let result = try managedObjectContext?.fetch(request) {
-                for savedNews in result as [NSManagedObject] {
-                    if (savedNews.value(forKey: "newsTitle") as! String) == item?.title {
-                        savedArticleExists = true
-                    } else {
-                        savedArticleExists = false
-                    }
-                }
+            let count = try managedObjectContext?.count(for: fetchRequest)
+            if count! > 0 {
+                return true
+            } else {
+                return false
             }
         } catch {
-            print("Something went wrong comapring")
+            print("Could not fetch")
+            return false
         }
-        return savedArticleExists ?? false
+//        do {
+//            if let result = try managedObjectContext?.fetch(request) {
+//                for savedNews in result as [NSManagedObject] {
+//                    if (savedNews.value(forKey: "newsTitle") as! String) == item?.title {
+//                        savedArticleExists = true
+//                    } else {
+//                        savedArticleExists = false
+//                    }
+//                }
+//            }
+//        } catch {
+//            print("Something went wrong comapring")
+//        }
+//        return savedArticleExists ?? false
     }
     
     func changeFavouriteButtonState(isSaved: Bool) {
@@ -177,8 +191,6 @@ class DetailNewsViewController: UIViewController {
     }
     
     // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let dVC: WebViewController = segue.destination as? WebViewController else {return}
         

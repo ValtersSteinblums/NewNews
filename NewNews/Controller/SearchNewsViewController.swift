@@ -29,6 +29,7 @@ class SearchNewsViewController: UIViewController {
         managedObjectContext = appDelegate.persistentContainer.viewContext
         
         loadData()
+        print(savedHistory)
     }
     
     func loadData() {
@@ -47,25 +48,32 @@ class SearchNewsViewController: UIViewController {
         do {
             try managedObjectContext?.save()
         } catch {
-           print("Error saving items to core data.")
+            print("Error saving items to core data.")
         }
         loadData()
     }
     
     @IBAction func searchButtonTapped(_ sender: UIButton) {
         let searchItem = searchTextField.text
-        print(searchItem!)
-        
-        if let entity = NSEntityDescription.entity(forEntityName: "SearchHistory", in: self.managedObjectContext!) {
-            let history = NSManagedObject(entity: entity, insertInto: self.managedObjectContext)
-            history.setValue(searchItem, forKey: "searchItem")
+        if searchItem != "" {
+            let searchEntryExists = checkIfExists(textFieldInput: searchItem!)
+            switch searchEntryExists {
+            case true:
+                delegate?.refreshNewsFeed(searchQuery: searchItem!)
+                self.dismiss(animated: true, completion: nil)
+            case false:
+                if let entity = NSEntityDescription.entity(forEntityName: "SearchHistory", in: self.managedObjectContext!) {
+                    let history = NSManagedObject(entity: entity, insertInto: self.managedObjectContext)
+                    history.setValue(searchItem, forKey: "searchItem")
+                }
+            }
+            self.saveData()
+            
+            delegate?.refreshNewsFeed(searchQuery: searchItem!)
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.dismiss(animated: true, completion: nil)
         }
-        self.saveData()
-        
-        delegate?.refreshNewsFeed(searchQuery: searchItem!)
-        self.dismiss(animated: true, completion: nil)
-        
-        print(savedHistory)
     }
     
     @IBAction func clearAllHistoryButtonTapped(_ sender: UIButton) {
@@ -84,6 +92,24 @@ class SearchNewsViewController: UIViewController {
         alertController.addAction(addClearButton)
         alertController.addAction(cancelButton)
         present(alertController, animated: true, completion: nil)
+    }
+    
+    func checkIfExists(textFieldInput: String) -> Bool {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SearchHistory")
+        fetchRequest.fetchLimit = 1
+        fetchRequest.predicate = NSPredicate(format: "searchItem == %@", textFieldInput)
+        
+        do {
+            let count = try managedObjectContext?.count(for: fetchRequest)
+            if count! > 0 {
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            print("Could not fetch")
+            return false
+        }
     }
 }
 

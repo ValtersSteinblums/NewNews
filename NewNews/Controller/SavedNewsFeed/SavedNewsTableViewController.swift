@@ -88,12 +88,19 @@ class SavedNewsTableViewController: UITableViewController {
 //    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        if savedNews.count == 0 {
+            tableView.setEmptyView(title: "No favourites to show for now.", messageImage: UIImage(systemName: "heart.fill")!, message: "Once you favourite a news article, it will appear here!")
+        }
+        
         return savedNews.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if savedNews.count != 0 {
+            tableView.backgroundView?.isHidden = true
+        }
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "savedNewsCell", for: indexPath) as? SavedNewsTableViewCell else {return UITableViewCell()}
         
         let savedArticle = savedNews[indexPath.row]

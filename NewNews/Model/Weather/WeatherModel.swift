@@ -88,17 +88,3 @@ struct WeatherModel {
         }
     }
 }
-
-extension Date {
-    func dateToString(dateFormat format: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        return dateFormatter.string(from: self)
-    }
-    
-    func toLocaltime() -> Date {
-        let timezone = TimeZone.current
-        let seconds = -TimeInterval(timezone.secondsFromGMT(for: self))
-        return Date(timeInterval: seconds, since: self)
-    }
-}

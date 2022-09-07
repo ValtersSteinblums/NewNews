@@ -33,17 +33,6 @@ struct Article: Codable {
 
 // MARK: - Source
 struct Source: Codable {
-//    let id: ID?
     let id: String?
     let name: String?
 }
-
-//enum ID: String, Codable {
-//    case arsTechnica = "ars-technica"
-//    case bbcNews = "bbc-news"
-//    case cnn = "cnn"
-//    case engadget = "engadget"
-//    case reuters = "reuters"
-//    case theVerge = "the-verge"
-//    case wired = "wired"
-//}

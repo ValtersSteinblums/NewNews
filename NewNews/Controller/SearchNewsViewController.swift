@@ -117,10 +117,18 @@ class SearchNewsViewController: UIViewController {
 extension SearchNewsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if savedHistory.count == 0 {
+            tableView.setEmptyView(title: "Search history is empty for now.", messageImage: UIImage(named: "loupe")!, message: "Your search history will appear here!")
+        }
+        
         return savedHistory.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if savedHistory.count != 0 {
+            tableView.backgroundView?.isHidden = true
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath)
         let historyList = savedHistory[indexPath.row]
         cell.textLabel?.text = historyList.value(forKey: "searchItem") as? String
@@ -140,6 +148,4 @@ extension SearchNewsViewController: UITableViewDelegate, UITableViewDataSource {
         delegate?.refreshNewsFeed(searchQuery: one as! String)
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
 }

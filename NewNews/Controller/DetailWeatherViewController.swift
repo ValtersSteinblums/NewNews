@@ -85,7 +85,7 @@ extension DetailWeatherViewController: WeatherManagerDelegate {
             self.humidityLabel.text = "Humidity: \(weather.airHumidity.description)%"
             self.windSpeedLabel.text = "Wind: \(weather.windSpeed.description)m/s Direction:\(weather.windDirection)"
             self.sunriseLabel.text = "Sunrise: \(weather.sunriseToDate.description)"
-            self.sunsetLabel.text = "Sunset: \(weather.sunsetToDate.description) "
+            self.sunsetLabel.text = "Sunset: \(weather.sunsetToDate) "
             self.lastUpdateLabel.text = "Last updated: \(weather.lastUpdateToDate.description)"
         }
     }

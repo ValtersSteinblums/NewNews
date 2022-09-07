@@ -22,7 +22,7 @@ class NewsFeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.title = "General"
         newsManager.getTopStories { articles in
             self.articles = articles
             DispatchQueue.main.async {
@@ -93,6 +93,7 @@ extension NewsFeedViewController: SearchNewsViewControllerDelegate {
                 self.tblView.reloadData()
             }
         }
+        self.title = searchQuery
         tblView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
     }
 }
@@ -106,6 +107,7 @@ extension NewsFeedViewController: NewsCategoryViewControllerDelegate {
                 self.tblView.reloadData()
             }
         }
+        self.title = category
         tblView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
     }
 }

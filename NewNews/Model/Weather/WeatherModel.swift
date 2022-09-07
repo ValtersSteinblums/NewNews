@@ -28,19 +28,22 @@ struct WeatherModel {
         return String(format: "%.1f", feelsLikeTemperature)
     }
     
-    var lastUpdateToDate: NSDate {
-        let date = NSDate(timeIntervalSince1970: TimeInterval(lastUpdate))
-        return date
+    var lastUpdateToDate: String {
+        let lastUpdate = Date(timeIntervalSince1970: TimeInterval(lastUpdate))
+        let timeLastUpdate = lastUpdate.dateToString(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        return timeLastUpdate
     }
     
-    var sunsetToDate: NSDate {
-        let sunSets = NSDate(timeIntervalSince1970: TimeInterval(sunset))
-        return sunSets
+    var sunsetToDate: String {
+        let sunSets = Date(timeIntervalSince1970: TimeInterval(sunset))
+        let timeSunSets = sunSets.dateToString(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        return timeSunSets
     }
     
-    var sunriseToDate: NSDate {
-        let sunRises = NSDate(timeIntervalSince1970: TimeInterval(sunrise))
-        return sunRises
+    var sunriseToDate: String {
+        let sunRises = Date(timeIntervalSince1970: TimeInterval(sunrise))
+        let timeSunRises = sunRises.dateToString(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        return timeSunRises
     }
     
     var windDirection: String {
@@ -91,5 +94,11 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: self)
+    }
+    
+    func toLocaltime() -> Date {
+        let timezone = TimeZone.current
+        let seconds = -TimeInterval(timezone.secondsFromGMT(for: self))
+        return Date(timeInterval: seconds, since: self)
     }
 }

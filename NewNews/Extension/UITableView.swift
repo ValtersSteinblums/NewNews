@@ -38,8 +38,8 @@ extension UITableView {
         
         messageImageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
         messageImageView.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
-        messageImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        messageImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        messageImageView.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        messageImageView.heightAnchor.constraint(equalToConstant: 120).isActive = true
         
         messageLabel.topAnchor.constraint(equalTo: messageImageView.bottomAnchor, constant: 30).isActive = true
         messageLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true

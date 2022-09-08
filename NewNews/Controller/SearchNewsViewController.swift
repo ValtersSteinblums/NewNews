@@ -19,11 +19,14 @@ class SearchNewsViewController: UIViewController {
     
     @IBOutlet weak var searchTableView: UITableView!
     @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var searchButton: UIButton!
     
     var delegate: SearchNewsViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchButton.roundSelectCorners(corners: [.topRight, .bottomRight], radius: 8)
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         managedObjectContext = appDelegate.persistentContainer.viewContext

@@ -421,6 +421,7 @@
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P1U-mR-GHi">
                                         <rect key="frame" x="295" y="0.0" width="40" height="30"/>
+                                        <color key="backgroundColor" systemColor="systemCyanColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="mHe-ey-E17"/>
                                             <constraint firstAttribute="height" constant="30" id="s1d-pn-Ma5"/>
@@ -449,6 +450,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="searchButton" destination="P1U-mR-GHi" id="vtD-eZ-v1I"/>
                         <outlet property="searchTableView" destination="awA-DA-i9n" id="nyN-5V-Xdn"/>
                         <outlet property="searchTextField" destination="KOY-6l-QZp" id="b6e-rO-2tV"/>
                     </connections>
@@ -826,6 +828,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemCyanColor">
+            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

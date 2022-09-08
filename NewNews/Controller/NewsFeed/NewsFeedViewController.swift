@@ -22,11 +22,14 @@ class NewsFeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.showSpinner()
         self.title = "General"
+        self.tabBarItem.title = "General"
         newsManager.getTopStories { articles in
             self.articles = articles
             DispatchQueue.main.async {
                 self.tblView.reloadData()
+                //self.removeSpinner()
             }
         }
     }
@@ -87,13 +90,16 @@ extension NewsFeedViewController: UITableViewDelegate, UITableViewDataSource {
 extension NewsFeedViewController: SearchNewsViewControllerDelegate {
     
     func refreshNewsFeed(searchQuery: String) {
+        self.showSpinner()
         newsManager.searchNews(searchQuery: searchQuery) { articles in
             self.articles = articles
             DispatchQueue.main.async {
                 self.tblView.reloadData()
+                self.removeSpinner()
             }
         }
-        self.title = searchQuery
+        self.title = searchQuery.uppercased()
+        self.tabBarItem.title = searchQuery.uppercased()
         tblView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
     }
 }
@@ -101,13 +107,16 @@ extension NewsFeedViewController: SearchNewsViewControllerDelegate {
 // MARK: - NewsCategoryViewControllerDelegate
 extension NewsFeedViewController: NewsCategoryViewControllerDelegate {
     func refreshNewsFeed(category: String) {
+        self.showSpinner()
         newsManager.searchNews(category: category) { articles in
             self.articles = articles
             DispatchQueue.main.async {
                 self.tblView.reloadData()
+                self.removeSpinner()
             }
         }
-        self.title = category
+        self.title = category.uppercased()
+        self.tabBarItem.title = category.uppercased()
         tblView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
     }
 }
@@ -130,6 +139,7 @@ extension NewsFeedViewController: CLLocationManagerDelegate {
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
             weatherManager.getWeatherByLocation(lattitude: lat, longitude: lon)
+            self.removeSpinner()
         }
     }
     
@@ -137,4 +147,6 @@ extension NewsFeedViewController: CLLocationManagerDelegate {
         print(error)
     }
 }
+
+
 

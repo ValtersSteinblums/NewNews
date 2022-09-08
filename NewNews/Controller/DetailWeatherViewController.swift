@@ -94,12 +94,15 @@ extension DetailWeatherViewController: WeatherManagerDelegate {
 // MARK: - CLLocationManagerDelegate
 extension DetailWeatherViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.showSpinner()
         if let location = locations.last {
             locationManager.stopUpdatingLocation()
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
             weatherManager.getWeatherByLocation(lattitude: lat, longitude: lon)
+            self.removeSpinner()
         }
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

@@ -23,11 +23,11 @@ extension UITableView {
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
         
         titleLabel.textColor = UIColor.label
-        titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 22)
+        titleLabel.font = UIFont(name: "LeagueSpartan-Bold", size: 22)
         
         messageImageView.tintColor = .label
         messageLabel.textColor = UIColor.label
-        messageLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
+        messageLabel.font = UIFont(name: "LeagueSpartan-Light", size: 15)
         
         emptyView.addSubview(titleLabel)
         emptyView.addSubview(messageImageView)

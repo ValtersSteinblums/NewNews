@@ -72,6 +72,7 @@ extension NewsFeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.newsImageView.sd_setImage(with: URL(string: item.urlToImage ?? ""))
         cell.authorlabel.text = item.source?.name
         cell.descriptionLabel.text = item.title
+        cell.selectionStyle = .none
         
         return cell
     }
@@ -96,11 +97,15 @@ extension NewsFeedViewController: SearchNewsViewControllerDelegate {
             DispatchQueue.main.async {
                 self.tblView.reloadData()
                 self.removeSpinner()
+                if articles.count == 0 {
+                    self.tblView.setEmptyView(title: "No search results..", messageImage: UIImage(named: "loupe")!, message: "Your search query '\(searchQuery)' did not return any results!")
+                } else {
+                    self.tblView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
+                }
             }
         }
         self.title = searchQuery.uppercased()
         self.tabBarItem.title = searchQuery.uppercased()
-        tblView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
     }
 }
 

@@ -20,6 +20,7 @@ class SearchNewsViewController: UIViewController {
     @IBOutlet weak var searchTableView: UITableView!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var clearAllHistoryButton: UIButton!
     
     var delegate: SearchNewsViewControllerDelegate?
     
@@ -27,6 +28,7 @@ class SearchNewsViewController: UIViewController {
         super.viewDidLoad()
         
         searchButton.roundSelectCorners(corners: [.topRight, .bottomRight], radius: 8)
+        clearAllHistoryButton.roundSelectCorners(corners: [.topLeft, .bottomLeft], radius: 8)
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         managedObjectContext = appDelegate.persistentContainer.viewContext

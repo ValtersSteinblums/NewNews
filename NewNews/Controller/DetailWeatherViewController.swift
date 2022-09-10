@@ -20,8 +20,6 @@ class DetailWeatherViewController: UIViewController {
     @IBOutlet weak var temperatureFeelsLikeLabel: UILabel!
     @IBOutlet weak var humidityLabel: UILabel!
     @IBOutlet weak var windSpeedLabel: UILabel!
-    @IBOutlet weak var sunriseLabel: UILabel!
-    @IBOutlet weak var sunsetLabel: UILabel!
     @IBOutlet weak var lastUpdateLabel: UILabel!
     @IBOutlet weak var searchTextField: UITextField!
     
@@ -77,15 +75,13 @@ extension DetailWeatherViewController: UITextFieldDelegate {
 extension DetailWeatherViewController: WeatherManagerDelegate {
     func didUpdateWeather(weatherManager: WeatherManager, weather: WeatherModel) {
         DispatchQueue.main.async {
-            self.weatherImage.image = UIImage(systemName: weather.conditionName)
+            self.weatherImage.image = UIImage(named: weather.conditionName)
             self.weatherDescriptionLabel.text = weather.weatherDescription
             self.temperatureLabel.text = "\(weather.temperatureString)°C"
             self.cityLabel.text = weather.cityName
             self.temperatureFeelsLikeLabel.text = "Feels like \(weather.feelsLikeTemperatureString)°C"
             self.humidityLabel.text = "Humidity: \(weather.airHumidity.description)%"
             self.windSpeedLabel.text = "Wind: \(weather.windSpeed.description)m/s Direction:\(weather.windDirection)"
-            self.sunriseLabel.text = "Sunrise: \(weather.sunriseToDate.description)"
-            self.sunsetLabel.text = "Sunset: \(weather.sunsetToDate) "
             self.lastUpdateLabel.text = "Last updated: \(weather.lastUpdateToDate.description)"
         }
     }

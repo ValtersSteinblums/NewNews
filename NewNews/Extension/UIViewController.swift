@@ -17,6 +17,7 @@ extension UIViewController {
         
         let ai = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
         ai.center = aView!.center
+        ai.color = UIColor.gray
         ai.startAnimating()
         aView?.addSubview(ai)
         self.view.addSubview(aView!)

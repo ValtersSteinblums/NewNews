@@ -69,7 +69,7 @@ extension NewsFeedViewController: UITableViewDelegate, UITableViewDataSource {
         let item = articles[indexPath.row]
         
         cell.publishedLabel.text = item.publishedAt?.padding(toLength: 10, withPad: "", startingAt: 0)
-        cell.newsImageView.sd_setImage(with: URL(string: item.urlToImage ?? ""))
+        cell.newsImageView.sd_setImage(with: URL(string: item.urlToImage ?? "noImage"))
         cell.authorlabel.text = item.source?.name
         cell.descriptionLabel.text = item.title
         cell.selectionStyle = .none
@@ -118,11 +118,11 @@ extension NewsFeedViewController: NewsCategoryViewControllerDelegate {
             DispatchQueue.main.async {
                 self.tblView.reloadData()
                 self.removeSpinner()
+                self.tblView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
             }
         }
         self.title = category.uppercased()
         self.tabBarItem.title = category.uppercased()
-        tblView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
     }
 }
 
@@ -131,7 +131,7 @@ extension NewsFeedViewController: WeatherManagerDelegate {
     func didUpdateWeather(weatherManager: WeatherManager, weather: WeatherModel) {
         DispatchQueue.main.async {
             self.tempLabel.text = ("\(weather.temperatureString)°C\n\(weather.cityName)")
-            self.weatherImageView.image = UIImage(systemName: weather.conditionName)
+            self.weatherImageView.image = UIImage(named: weather.conditionName)
         }
     }
 }

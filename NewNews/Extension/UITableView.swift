@@ -42,7 +42,7 @@ extension UITableView {
         messageImageView.heightAnchor.constraint(equalToConstant: 120).isActive = true
         
         messageLabel.topAnchor.constraint(equalTo: messageImageView.bottomAnchor, constant: 30).isActive = true
-        messageLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+        //messageLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
         messageLabel.trailingAnchor.constraint(equalTo: emptyView.safeAreaLayoutGuide.trailingAnchor).isActive = true
         messageLabel.leadingAnchor.constraint(equalTo: emptyView.safeAreaLayoutGuide.leadingAnchor).isActive = true
         

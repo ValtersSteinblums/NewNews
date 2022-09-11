@@ -66,7 +66,7 @@ class SearchNewsViewController: UIViewController {
             case false:
                 if let entity = NSEntityDescription.entity(forEntityName: "SearchHistory", in: self.managedObjectContext!) {
                     let history = NSManagedObject(entity: entity, insertInto: self.managedObjectContext)
-                    history.setValue(searchItem, forKey: "searchItem")
+                    history.setValue(searchItem?.replacingOccurrences(of: "-", with: " "), forKey: "searchItem")
                 }
             }
             self.saveData()

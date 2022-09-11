@@ -27,9 +27,6 @@ class SearchNewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchButton.roundSelectCorners(corners: [.topRight, .bottomRight], radius: 8)
-        clearAllHistoryButton.roundSelectCorners(corners: [.topLeft, .bottomLeft], radius: 8)
-        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         managedObjectContext = appDelegate.persistentContainer.viewContext
         
@@ -59,7 +56,7 @@ class SearchNewsViewController: UIViewController {
     }
     
     @IBAction func searchButtonTapped(_ sender: UIButton) {
-        let searchItem = searchTextField.text
+        let searchItem = searchTextField.text?.replacingOccurrences(of: " ", with: "-")
         if searchItem != "" {
             let searchEntryExists = checkIfExists(textFieldInput: searchItem!)
             switch searchEntryExists {

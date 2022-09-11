@@ -104,8 +104,8 @@ extension NewsFeedViewController: SearchNewsViewControllerDelegate {
                 }
             }
         }
-        self.title = searchQuery.capitalized
-        self.tabBarItem.title = searchQuery.capitalized
+        self.title = searchQuery.capitalized.replacingOccurrences(of: "-", with: " ")
+        self.tabBarItem.title = searchQuery.capitalized.replacingOccurrences(of: "-", with: " ")
     }
 }
 

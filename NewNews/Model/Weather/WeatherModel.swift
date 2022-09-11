@@ -17,8 +17,6 @@ struct WeatherModel {
     let windSpeed: Double
     let windDegrees: Int
     let lastUpdate: Int
-    let sunset: Int
-    let sunrise: Int
     
     var temperatureString: String {
         return String(format: "%.1f", temperature)
@@ -32,18 +30,6 @@ struct WeatherModel {
         let lastUpdate = Date(timeIntervalSince1970: TimeInterval(lastUpdate))
         let timeLastUpdate = lastUpdate.dateToString(dateFormat: "yyyy-MM-dd HH:mm:ss")
         return timeLastUpdate
-    }
-    
-    var sunsetToDate: String {
-        let sunSets = Date(timeIntervalSince1970: TimeInterval(sunset))
-        let timeSunSets = sunSets.dateToString(dateFormat: "yyyy-MM-dd HH:mm:ss")
-        return timeSunSets
-    }
-    
-    var sunriseToDate: String {
-        let sunRises = Date(timeIntervalSince1970: TimeInterval(sunrise))
-        let timeSunRises = sunRises.dateToString(dateFormat: "yyyy-MM-dd HH:mm:ss")
-        return timeSunRises
     }
     
     var windDirection: String {

@@ -58,10 +58,8 @@ struct WeatherManager {
             let wind = jsonData.wind.speed
             let windDegrees = jsonData.wind.deg
             let update = jsonData.dt
-            let sunset = jsonData.sys.sunset
-            let sunrise = jsonData.sys.sunrise
             
-            let weather = WeatherModel(conditionID: id, cityName: name, temperature: temp, weatherDescription: description, feelsLikeTemperature: feelsTemp, airHumidity: humidity, windSpeed: wind, windDegrees: windDegrees, lastUpdate: update, sunset: sunset, sunrise: sunrise)
+            let weather = WeatherModel(conditionID: id, cityName: name, temperature: temp, weatherDescription: description, feelsLikeTemperature: feelsTemp, airHumidity: humidity, windSpeed: wind, windDegrees: windDegrees, lastUpdate: update)
             print(weather)
             return weather
         } catch {

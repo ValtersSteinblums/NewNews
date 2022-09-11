@@ -123,7 +123,7 @@ extension SearchNewsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if savedHistory.count == 0 {
-            tableView.setEmptyView(title: "Search history is empty for now.", messageImage: UIImage(named: "loupe")!, message: "Your search history will appear here!")
+            tableView.setEmptyView(title: "Search history is empty for now.", messageImage: UIImage(named: "lupaBB")!, message: "Your search history will appear here!")
         }
         
         return savedHistory.count

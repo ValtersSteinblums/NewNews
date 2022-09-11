@@ -84,7 +84,7 @@ class SavedNewsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if savedNews.count == 0 {
-            tableView.setEmptyView(title: "No favourites to show for now.", messageImage: UIImage(systemName: "heart.fill")!, message: "Once you favourite a news article, it will appear here!")
+            tableView.setEmptyView(title: "No favourites to show for now.", messageImage: UIImage(named: "HeartB")!, message: "Once you favourite a news article, it will appear here!")
         }
         
         return savedNews.count

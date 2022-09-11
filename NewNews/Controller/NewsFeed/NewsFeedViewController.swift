@@ -98,14 +98,14 @@ extension NewsFeedViewController: SearchNewsViewControllerDelegate {
                 self.tblView.reloadData()
                 self.removeSpinner()
                 if articles.count == 0 {
-                    self.tblView.setEmptyView(title: "No search results..", messageImage: UIImage(named: "loupe")!, message: "Your search query '\(searchQuery)' did not return any results!")
+                    self.tblView.setEmptyView(title: "No search results..", messageImage: UIImage(named: "lupaBB")!, message: "Your search query '\(searchQuery)' did not return any results!")
                 } else {
                     self.tblView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
                 }
             }
         }
-        self.title = searchQuery.uppercased()
-        self.tabBarItem.title = searchQuery.uppercased()
+        self.title = searchQuery.capitalized
+        self.tabBarItem.title = searchQuery.capitalized
     }
 }
 
@@ -121,8 +121,8 @@ extension NewsFeedViewController: NewsCategoryViewControllerDelegate {
                 self.tblView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
             }
         }
-        self.title = category.uppercased()
-        self.tabBarItem.title = category.uppercased()
+        self.title = category
+        self.tabBarItem.title = category
     }
 }
 

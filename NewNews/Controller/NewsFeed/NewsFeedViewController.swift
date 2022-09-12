@@ -131,8 +131,6 @@ extension NewsFeedViewController: NewsCategoryViewControllerDelegate {
 extension NewsFeedViewController: WeatherManagerDelegate {
     func didUpdateWeather(weatherManager: WeatherManager, weather: WeatherModel) {
         DispatchQueue.main.async {
-//            self.tempLabel.text = ("\(weather.temperatureString)°C\n\(weather.cityName)")
-//            self.weatherImageView.image = UIImage(named: weather.conditionName)
             self.tempLabel.text = "\(weather.temperatureString(temp: weather.temperature))°C\n\(weather.cityName)"
             self.weatherImageView.image = UIImage(named: weather.conditionName(conditionID: weather.conditionID))
         }
@@ -146,7 +144,6 @@ extension NewsFeedViewController: CLLocationManagerDelegate {
             locationManager.stopUpdatingLocation()
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
-            //weatherManager.getWeatherByLocation(lattitude: lat, longitude: lon)
             weatherManager.getWeatherByLocation(latitude: lat, longitude: lon) { list in
                 self.weatherList = list
             }

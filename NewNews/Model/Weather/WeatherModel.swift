@@ -29,9 +29,6 @@ struct WeatherModel {
     let forecastTwo: Int
     let forecastThree: Int
     
-//    var temperatureString: String {
-//        return String(format: "%.1f", temperature)
-//    }
     func temperatureString(temp: Double) -> String {
         return String(format: "%.1f", temp)
     }
@@ -73,34 +70,6 @@ struct WeatherModel {
         }
     }
     
-//    var conditionName: String {
-//        switch conditionID {
-//        case 0...300 :
-//            return "storm"
-//        case 301...500 :
-//            return "rainy"
-//        case 501...600 :
-//            return "rain"
-//        case 601...700 :
-//            return "snow"
-//        case 701...771 :
-//            return "foggy"
-//        case 772...799 :
-//            return "thunderstorm"
-//        case 800 :
-//            return "sun"
-//        case 801...804 :
-//            return "cloudy"
-//        case 900...903, 905...1000  :
-//            return "thunderstorm"
-//        case 903 :
-//            return "snow"
-//        case 904 :
-//            return "sun"
-//        default:
-//            return "cloudy"
-//        }
-//    }
     func conditionName(conditionID: Int) -> String {
         switch conditionID {
         case 0...300 :

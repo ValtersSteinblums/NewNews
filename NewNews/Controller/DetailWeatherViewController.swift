@@ -90,14 +90,6 @@ extension DetailWeatherViewController: UITextFieldDelegate {
 extension DetailWeatherViewController: WeatherManagerDelegate {
     func didUpdateWeather(weatherManager: WeatherManager, weather: WeatherModel) {
         DispatchQueue.main.async {
-//            self.weatherImage.image = UIImage(named: weather.conditionName)
-//            self.weatherDescriptionLabel.text = weather.weatherDescription
-//            self.temperatureLabel.text = "\(weather.temperatureString)°C"
-//            self.cityLabel.text = weather.cityName
-//            self.temperatureFeelsLikeLabel.text = "Feels like \(weather.feelsLikeTemperatureString)°C"
-//            self.humidityLabel.text = "Humidity: \(weather.airHumidity.description)%"
-//            self.windSpeedLabel.text = "Wind: \(weather.windSpeed.description)m/s Direction: \(weather.windDirection)"
-//            self.lastUpdateLabel.text = "Last updated: \(weather.lastUpdateToDate.description)"
             self.weatherImage.image = UIImage(named: weather.conditionName(conditionID: weather.conditionID))
             self.weatherDescriptionLabel.text = weather.weatherDescription
             self.temperatureLabel.text = "\(weather.temperatureString(temp: weather.temperature))°C"
@@ -105,14 +97,14 @@ extension DetailWeatherViewController: WeatherManagerDelegate {
             self.temperatureFeelsLikeLabel.text = "Feels like \(weather.feelsLikeTemperatureString)°C"
             self.humidityLabel.text = "Humidity: \(weather.airHumidity.description)%"
             self.windSpeedLabel.text = "Wind: \(weather.windSpeed.description)m/s Direction: \(weather.windDirection)"
-            self.lastUpdateLabel.text = "Last updated: \(weather.lastUpdateToDate.description)"
+            self.lastUpdateLabel.text = "Predicted forecast time\n \(weather.lastUpdateToDate.description)"
             
             self.weatherImageTwo.image = UIImage(named: weather.conditionName(conditionID: weather.secondConditionID))
             self.weatherImageThree.image = UIImage(named: weather.conditionName(conditionID: weather.thirdConditionID))
             self.weatherImageFour.image = UIImage(named: weather.conditionName(conditionID: weather.fourthConditionID))
-            self.temperatureLabelTwo.text = weather.temperatureString(temp: weather.secondTemp)
-            self.temperatureLabelThree.text = weather.temperatureString(temp: weather.thirdTemp)
-            self.temperatureLabelFour.text = weather.temperatureString(temp: weather.fourthTemp)
+            self.temperatureLabelTwo.text = "\(weather.temperatureString(temp: weather.secondTemp))°C"
+            self.temperatureLabelThree.text = "\(weather.temperatureString(temp: weather.thirdTemp))°C"
+            self.temperatureLabelFour.text = "\(weather.temperatureString(temp: weather.fourthTemp))°C"
             self.forecastTimeOne.text = weather.forecastedTime(time: weather.forecastOne)
             self.forecastTimeTwo.text = weather.forecastedTime(time: weather.forecastTwo)
             self.forecastTimeThree.text = weather.forecastedTime(time: weather.forecastThree)

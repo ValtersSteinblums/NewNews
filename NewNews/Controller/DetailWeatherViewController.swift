@@ -81,7 +81,7 @@ extension DetailWeatherViewController: WeatherManagerDelegate {
             self.cityLabel.text = weather.cityName
             self.temperatureFeelsLikeLabel.text = "Feels like \(weather.feelsLikeTemperatureString)°C"
             self.humidityLabel.text = "Humidity: \(weather.airHumidity.description)%"
-            self.windSpeedLabel.text = "Wind: \(weather.windSpeed.description)m/s Direction:\(weather.windDirection)"
+            self.windSpeedLabel.text = "Wind: \(weather.windSpeed.description)m/s Direction: \(weather.windDirection)"
             self.lastUpdateLabel.text = "Last updated: \(weather.lastUpdateToDate.description)"
         }
     }

@@ -24,9 +24,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundWeather" translatesAutoresizingMaskIntoConstraints="NO" id="byx-I7-zwP">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
-                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="wIM-s6-XTl">
                                 <rect key="frame" x="10" y="10" width="355" height="627"/>
                                 <subviews>
@@ -132,12 +129,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="cXJ-Na-Bqt" firstAttribute="trailing" secondItem="wIM-s6-XTl" secondAttribute="trailing" constant="10" id="4ti-wp-5gQ"/>
-                            <constraint firstAttribute="bottom" secondItem="byx-I7-zwP" secondAttribute="bottom" id="C6y-6s-kzq"/>
                             <constraint firstItem="wIM-s6-XTl" firstAttribute="top" secondItem="cXJ-Na-Bqt" secondAttribute="top" constant="10" id="LCC-Bc-IOu"/>
-                            <constraint firstAttribute="trailing" secondItem="byx-I7-zwP" secondAttribute="trailing" id="OMJ-M1-dxR"/>
                             <constraint firstItem="cXJ-Na-Bqt" firstAttribute="bottom" secondItem="wIM-s6-XTl" secondAttribute="bottom" constant="10" id="eYV-VK-F9k"/>
-                            <constraint firstItem="byx-I7-zwP" firstAttribute="top" secondItem="DNE-9Q-nTH" secondAttribute="top" id="fEi-BL-xWQ"/>
-                            <constraint firstItem="byx-I7-zwP" firstAttribute="leading" secondItem="DNE-9Q-nTH" secondAttribute="leading" id="lZy-zC-reL"/>
                             <constraint firstItem="wIM-s6-XTl" firstAttribute="leading" secondItem="cXJ-Na-Bqt" secondAttribute="leading" constant="10" id="wRn-Je-htv"/>
                         </constraints>
                     </view>
@@ -795,7 +788,6 @@
     </scenes>
     <resources>
         <image name="arrow.up.arrow.down" catalog="system" width="128" height="98"/>
-        <image name="backgroundWeather" width="562.5" height="1218"/>
         <image name="clock.arrow.circlepath" catalog="system" width="128" height="110"/>
         <image name="cloud.drizzle.fill" catalog="system" width="125" height="128"/>
         <image name="heart" catalog="system" width="128" height="109"/>

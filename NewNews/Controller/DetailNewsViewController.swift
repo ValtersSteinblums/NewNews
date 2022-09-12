@@ -153,20 +153,6 @@ class DetailNewsViewController: UIViewController {
             print("Could not fetch")
             return false
         }
-//        do {
-//            if let result = try managedObjectContext?.fetch(request) {
-//                for savedNews in result as [NSManagedObject] {
-//                    if (savedNews.value(forKey: "newsTitle") as! String) == item?.title {
-//                        savedArticleExists = true
-//                    } else {
-//                        savedArticleExists = false
-//                    }
-//                }
-//            }
-//        } catch {
-//            print("Something went wrong comapring")
-//        }
-//        return savedArticleExists ?? false
     }
     
     func changeFavouriteButtonState(isSaved: Bool) {
@@ -193,7 +179,6 @@ class DetailNewsViewController: UIViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let dVC: WebViewController = segue.destination as? WebViewController else {return}
-        
         if self.isFromViewController == "NewsFeed" {
             dVC.urlString = item?.url ?? ""
         } else {

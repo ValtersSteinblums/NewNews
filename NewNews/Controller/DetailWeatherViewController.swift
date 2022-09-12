@@ -10,6 +10,7 @@ import CoreLocation
 
 class DetailWeatherViewController: UIViewController {
     
+    var weatherList: [List] = []
     var weatherManager = WeatherManager()
     let locationManager = CLLocationManager()
     
@@ -22,6 +23,17 @@ class DetailWeatherViewController: UIViewController {
     @IBOutlet weak var windSpeedLabel: UILabel!
     @IBOutlet weak var lastUpdateLabel: UILabel!
     @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var weatherImageTwo: UIImageView!
+    @IBOutlet weak var weatherImageThree: UIImageView!
+    @IBOutlet weak var weatherImageFour: UIImageView!
+    @IBOutlet weak var temperatureLabelTwo: UILabel!
+    @IBOutlet weak var temperatureLabelThree: UILabel!
+    @IBOutlet weak var temperatureLabelFour: UILabel!
+    @IBOutlet weak var forecastTimeOne: UILabel!
+    @IBOutlet weak var forecastTimeTwo: UILabel!
+    @IBOutlet weak var forecastTimeThree: UILabel!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +78,10 @@ extension DetailWeatherViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let city = searchTextField.text {
-            weatherManager.getWeatherByCity(city: city)
+            //weatherManager.getWeatherByCity(city: city)
+            weatherManager.getWeatherByCity(city: city) { list in
+                self.weatherList = list
+            }
         }
         searchTextField.text = ""
     }
@@ -75,14 +90,32 @@ extension DetailWeatherViewController: UITextFieldDelegate {
 extension DetailWeatherViewController: WeatherManagerDelegate {
     func didUpdateWeather(weatherManager: WeatherManager, weather: WeatherModel) {
         DispatchQueue.main.async {
-            self.weatherImage.image = UIImage(named: weather.conditionName)
+//            self.weatherImage.image = UIImage(named: weather.conditionName)
+//            self.weatherDescriptionLabel.text = weather.weatherDescription
+//            self.temperatureLabel.text = "\(weather.temperatureString)°C"
+//            self.cityLabel.text = weather.cityName
+//            self.temperatureFeelsLikeLabel.text = "Feels like \(weather.feelsLikeTemperatureString)°C"
+//            self.humidityLabel.text = "Humidity: \(weather.airHumidity.description)%"
+//            self.windSpeedLabel.text = "Wind: \(weather.windSpeed.description)m/s Direction: \(weather.windDirection)"
+//            self.lastUpdateLabel.text = "Last updated: \(weather.lastUpdateToDate.description)"
+            self.weatherImage.image = UIImage(named: weather.conditionName(conditionID: weather.conditionID))
             self.weatherDescriptionLabel.text = weather.weatherDescription
-            self.temperatureLabel.text = "\(weather.temperatureString)°C"
+            self.temperatureLabel.text = "\(weather.temperatureString(temp: weather.temperature))°C"
             self.cityLabel.text = weather.cityName
             self.temperatureFeelsLikeLabel.text = "Feels like \(weather.feelsLikeTemperatureString)°C"
             self.humidityLabel.text = "Humidity: \(weather.airHumidity.description)%"
             self.windSpeedLabel.text = "Wind: \(weather.windSpeed.description)m/s Direction: \(weather.windDirection)"
             self.lastUpdateLabel.text = "Last updated: \(weather.lastUpdateToDate.description)"
+            
+            self.weatherImageTwo.image = UIImage(named: weather.conditionName(conditionID: weather.secondConditionID))
+            self.weatherImageThree.image = UIImage(named: weather.conditionName(conditionID: weather.thirdConditionID))
+            self.weatherImageFour.image = UIImage(named: weather.conditionName(conditionID: weather.fourthConditionID))
+            self.temperatureLabelTwo.text = weather.temperatureString(temp: weather.secondTemp)
+            self.temperatureLabelThree.text = weather.temperatureString(temp: weather.thirdTemp)
+            self.temperatureLabelFour.text = weather.temperatureString(temp: weather.fourthTemp)
+            self.forecastTimeOne.text = weather.forecastedTime(time: weather.forecastOne)
+            self.forecastTimeTwo.text = weather.forecastedTime(time: weather.forecastTwo)
+            self.forecastTimeThree.text = weather.forecastedTime(time: weather.forecastThree)
         }
     }
 }
@@ -95,7 +128,10 @@ extension DetailWeatherViewController: CLLocationManagerDelegate {
             locationManager.stopUpdatingLocation()
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
-            weatherManager.getWeatherByLocation(lattitude: lat, longitude: lon)
+            //weatherManager.getWeatherByLocation(lattitude: lat, longitude: lon)
+            weatherManager.getWeatherByLocation(latitude: lat, longitude: lon) { list in
+                self.weatherList = list
+            }
             self.removeSpinner()
         }
         

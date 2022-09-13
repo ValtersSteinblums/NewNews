@@ -20,7 +20,6 @@ struct WeatherManager {
     
     func getWeatherByCity(city: String, completion: @escaping([List]) -> ()) {
         let urlString = weatherURL + "&q=\(city)"
-        print(urlString)
         guard let url = URL(string: urlString) else {return}
         sessionTask(url: url, completion: completion)
     }
@@ -28,7 +27,6 @@ struct WeatherManager {
     func getWeatherByLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping([List]) -> ()) {
         let urlString = "\(weatherURL)&lat=\(latitude)&lon=\(longitude)&cnt=4"
         guard let url = URL(string: urlString) else {return}
-        print(urlString)
         sessionTask(url: url, completion: completion)
     }
     
@@ -51,7 +49,6 @@ struct WeatherManager {
     func parseJSON(weatherData: Data) -> WeatherModel? {
         do {
             let jsonData = try JSONDecoder().decode(WeatherData.self, from: weatherData)
-            print(jsonData)
             let name = jsonData.city?.name
             let temp = jsonData.list?[0].main?.temp
             let id = jsonData.list?[0].weather?[0].id
@@ -75,7 +72,6 @@ struct WeatherManager {
             
             
             let weather = WeatherModel(conditionID: id!, cityName: name!, temperature: temp!, weatherDescription: desc!, feelsLikeTemperature: feelsLike!, airHumidity: humidity!, windSpeed: windSpeed!, windDegrees: windDeg!, lastUpdate: update!, secondTemp: temp1!, secondConditionID: id1!, thirdTemp: temp2!, thirdConditionID: id2!, fourthTemp: temp3!, fourthConditionID: id3!, forecastOne: forecast1!, forecastTwo: forecast2!, forecastThree: forecast3!)
-            print(weather)
             return weather
         } catch {
             print("ERROR:::", error)

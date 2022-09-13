@@ -21,7 +21,6 @@ class DetailWeatherViewController: UIViewController {
     @IBOutlet weak var temperatureFeelsLikeLabel: UILabel!
     @IBOutlet weak var humidityLabel: UILabel!
     @IBOutlet weak var windSpeedLabel: UILabel!
-    @IBOutlet weak var lastUpdateLabel: UILabel!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var weatherImageTwo: UIImageView!
     @IBOutlet weak var weatherImageThree: UIImageView!
@@ -97,7 +96,6 @@ extension DetailWeatherViewController: WeatherManagerDelegate {
             self.temperatureFeelsLikeLabel.text = "Feels like \(weather.feelsLikeTemperatureString)°C"
             self.humidityLabel.text = "Humidity: \(weather.airHumidity.description)%"
             self.windSpeedLabel.text = "Wind: \(weather.windSpeed.description)m/s Direction: \(weather.windDirection)"
-            self.lastUpdateLabel.text = "Predicted forecast time\n \(weather.lastUpdateToDate.description)"
             
             self.weatherImageTwo.image = UIImage(named: weather.conditionName(conditionID: weather.secondConditionID))
             self.weatherImageThree.image = UIImage(named: weather.conditionName(conditionID: weather.thirdConditionID))

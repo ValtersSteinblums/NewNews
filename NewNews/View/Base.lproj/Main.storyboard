@@ -54,7 +54,7 @@
                                                 <rect key="frame" x="42" y="0.0" width="310" height="40"/>
                                                 <color key="backgroundColor" systemColor="quaternaryLabelColor"/>
                                                 <fontDescription key="fontDescription" name="LeagueSpartan-Light" family="League Spartan" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="go"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOO-7M-I26">
                                                 <rect key="frame" x="354" y="0.0" width="40" height="40"/>
